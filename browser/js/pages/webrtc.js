@@ -56,9 +56,9 @@ const $chatList = document.querySelector('.chat-list');
 const $sendMessageInput = document.querySelector('#send-message');
 
 
-$loginInput.addEventListener('keydown',function handleLoginInputKeydown(e) {
+$loginInput.addEventListener('keydown', function handleLoginInputKeydown(e) {
   if (e.keyCode === 13) {
-    for(let uid in databaseUsers) {
+    for (let uid in databaseUsers) {
       let currentUser = databaseUsers[uid];
       if (currentUser.name === e.target.value.trim()) {
         socket.emit('uid', {
@@ -84,7 +84,7 @@ $sendMessageInput.addEventListener('keydown', function handleSendMessageKeyDown(
 socket.on('log', function handleUserLogin(message) {
   const users = message.users;
   let html = '';
-  for(let uid in users) {
+  for (let uid in users) {
     html += `<li data-uid="${uid}">${users[uid].name}</li>`
     let $li = document.createElement('li');
   }
@@ -92,7 +92,7 @@ socket.on('log', function handleUserLogin(message) {
 });
 
 socket.on('message', function handleReceivedMessage(message) {
-  const {from, content} = message;
+  const { from, content } = message;
   let $li = document.createElement('li');
   $li.textContent = `from:${from}, ${content}`;
   $chatList.appendChild($li);

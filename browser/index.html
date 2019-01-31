@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>webchat</title>
+  <link rel="stylesheet" href="./css/login.css">
+  <link rel="stylesheet" href="./css/users.css">
+  <link rel="stylesheet" href="./css/chat.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .page--hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- login panel -->
+  <div class="page page--hidden page-login">
+    <input type="text" class="page-login__input" placeholder="enter you name">
+    <p class="page-login__tip"></p>
+  </div>
+
+  <!-- user list -->
+  <div class="page page--hidden page-users">
+    <p class="page-users__header">在线用户(<span class="page-users__inline-count">0</span>)</p>
+    <ul class="page-users__inline-list">
+    </ul>
+  </div>
+
+  <!-- chat message -->
+  <div class="page page--hidden page-chat">
+    <div class="page-chat__header">
+      wangyudan
+    </div>
+    <ul class="page-chat__msgs">
+      <li class="chat-item chat-item--from">
+        <p class="chat-item__name">wangyudan</p>
+        <p class="chat-item__content">hello world...</p>
+      </li>
+      <li class="chat-item chat-item--to">
+        <p class="chat-item__name">kuangguanghu</p>
+        <p class="chat-item__content">hello world...</p>
+      </li>
+    </ul>
+    <div class="page-chat__form">
+      <input type="text" class="page-chat__input">
+      <button class="page-chat__send">send</button>
+    </div>
+  </div>
+
+
+  <!-- video chat -->
+  <div class="page page--hidden page-video">
+    <video id="localVideo" autoplay playsinline style="opacity: 0.1;"></video>
+    <video id="remoteVideo" autoplay playsinline style="opacity: 0.1;"></video>
+    <div>
+      <button id="startButton">Start</button>
+      <button id="callButton">Call</button>
+      <button id="hangupButton">Hang Up</button>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.dev.js"></script>
+  <script type="module" src="./js/pages/login.js"></script>
+  <script type="module" src="./js/pages/users.js"></script>
+  <script type="module" src="./js/pages/chat.js"></script>
+</body>
+
+</html>
