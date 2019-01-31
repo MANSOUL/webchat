@@ -5,7 +5,9 @@ const socketIO = require('socket.io');
 const InlineModel = require('./model/inline.js');
 const inlineModel = new InlineModel();
 
-const fileServer = new nodeStatic.Server('./browser');
+const fileServer = new nodeStatic.Server('./browser', {
+  cache: 0
+});
 const app = http.createServer(function (req, res) {
   fileServer.serve(req, res);
 }).listen(8888);
@@ -37,7 +39,6 @@ io.sockets.on('connection', function (socket) {
       singleBroardcastLog();
     }
     else if (type === CHAT_MESSAGE) {
-      console.log(message);
       const { content, touid } = message.data;
       console.log(content, touid);
       const toUser = inlineModel.getUserByUID(touid);

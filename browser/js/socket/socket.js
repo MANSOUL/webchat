@@ -5,14 +5,20 @@ const mSocket = {
       this.socket = io();
     }
   },
+
   sendMessage(type, data) {
     this.socket.emit('message', {
       type,
       data: data
     });
   },
+
   on(type, handler) {
     this.socket && this.socket.on(type, handler);
+  },
+
+  off(type, handler) {
+    this.socket && this.socket.off(type, handler);
   }
 }
 

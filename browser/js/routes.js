@@ -2,7 +2,7 @@ import { map, addClass } from './common.js';
 
 const routes = {
   routes: {},
-
+  willChangeCallbacks: [],
   add(path, handler) {
     this.routes[path] = handler;
   },
@@ -12,11 +12,26 @@ const routes = {
   },
 
   trigger(hash) {
+    this.triggerWillChange();
     map(document.querySelectorAll('.page'), function hiddenAllPage($ele) {
       addClass($ele, 'page--hidden');
     });
     const route = this.routes[hash.slice(1)];
     route && route();
+  },
+
+  triggerWillChange() {
+    map(this.willChangeCallbacks, function loopChangeCallbacks(cb) {
+      cb && cb();
+    });
+  },
+
+  willChange(fn) {
+    if (typeof fn !== 'function') return;
+    let index = this.willChangeCallbacks.push(fn) - 1;
+    return function unsub() {
+      this.willChangeCallbacks[index] = null;
+    }
   }
 };
 

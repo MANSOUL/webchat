@@ -28,7 +28,7 @@ function handleEnterUsersPage() {
     let htmlString = '';
     map(users, function (item) {
       htmlString +=
-        `<li data-uid="${item.uid}" class="page-users__inline-item">
+        `<li data-uid="${item.uid}" data-name="${item.name}" class="page-users__inline-item">
           <span>${item.name}</span>
           <div>
             <button class="inline-item__option inline-item__option-video">video</button>
@@ -44,11 +44,13 @@ function handleEnterUsersPage() {
   $userList.addEventListener('click', function handleUserListClick(e) {
     const $target = e.target;
     if (hasClass($target, 'inline-item__option-video')) {
-      startWebRTC(attr(parent($target, '.page-users__inline-item'), 'data-uid'));
+      const $item = parent($target, '.page-users__inline-item');
+      startWebRTC(attr($item, 'data-uid'), attr($item, 'data-name'));
       return;
     }
     if (hasClass($target, 'inline-item__option-chat')) {
-      startChat(attr(parent($target, '.page-users__inline-item'), 'data-uid'));
+      const $item = parent($target, '.page-users__inline-item');
+      startChat(attr($item, 'data-uid'), attr($item, 'data-name'));
       return;
     }
   });
@@ -59,8 +61,8 @@ function handleEnterUsersPage() {
   }
 
   // websocket chat
-  function startChat(uid) {
-    changeToUID(uid);
+  function startChat(uid, uname) {
+    changeToUID(uid, uname);
     routes.goto('/chat');
   }
 }

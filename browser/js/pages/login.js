@@ -1,6 +1,7 @@
 import routes from '../routes.js';
 import { removeClass, addClass, text } from '../common.js';
 import mSocket, { LOGIN_MESSAGE } from '../socket/socket.js';
+import { changeLoginer } from "../store/store.js";
 
 const $pageLogin = document.querySelector('.page-login');
 routes.add('/', handleEnterLoginPage);
@@ -20,6 +21,7 @@ function handleEnterLoginPage() {
   };
   const $loginInput = document.querySelector('.page-login__input');
   const $loginTip = document.querySelector('.page-login__tip');
+  $loginInput.value = navigator.userAgent.toLowerCase().match('android') ? 'kuangguanghu' : 'wangyudan'
 
   $loginInput.addEventListener('keydown', function handleLoginInputKeydown(e) {
     if (e.keyCode === 13) {
@@ -35,6 +37,7 @@ function handleEnterLoginPage() {
         mSocket.sendMessage(LOGIN_MESSAGE, {
           uid
         });
+        changeLoginer(uid, currentUser.name);
         routes.goto('/users');
         return;
       }
