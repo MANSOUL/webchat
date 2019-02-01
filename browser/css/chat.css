@@ -12,29 +12,30 @@
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
   background-color: #fff;
   font-size: 20px;
+  z-index: 1;
 }
 .page-chat__msgs {
-  padding-top: 15vw;
-  padding-bottom: 15vw;
+  padding-top: 17vw;
+  padding-bottom: 19vw;
   padding-left: 10px;
   padding-right: 10px;
 }
 .chat-item {
   display: flex;
   flex-direction: column;
-  margin-top: 4px;
+  margin-top: 14px;
 }
 .chat-item__name {
   font-size: 14px;
 }
 .chat-item__content {
   max-width: 65%;
-  display: inline;
   background: #efefef;
   padding: 4px 6px;
   margin-top: 4px;
   border-radius: 2px;
   word-break: break-all;
+  font-size: 14px;
 }
 .chat-item--from {
   align-items: flex-start;
@@ -72,4 +73,22 @@
   padding: 0 8px;
   margin-left: 10px;
   border-radius: 4px;
+}
+
+.fade-in {
+  animation-name: anim-fadein;
+  animation-duration: 250ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes anim-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(200%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

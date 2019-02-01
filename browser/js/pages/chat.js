@@ -1,5 +1,5 @@
 import routes from '../routes.js';
-import { removeClass, addClass, text, map, html, hasClass, attr } from '../common.js';
+import { removeClass, addClass, text, map, html, hasClass, attr, scrollToBottom } from '../common.js';
 import mSocket, { LOGIN_MESSAGE, CHAT_MESSAGE } from '../socket/socket.js';
 import { getStore, changeInlineUsers } from '../store/store.js';
 
@@ -29,12 +29,13 @@ function handleEnterChatPage() {
     // 
     const $chatItem = createChatItem(from, content, type);
     $chatList.appendChild($chatItem);
+    scrollToBottom(document.documentElement);
   }
 
   function createChatItem(from, content, type) {
     // create element
     const $li = document.createElement('li');
-    $li.className = `chat-item chat-item--${type}`;
+    $li.className = `chat-item chat-item--${type} fade-in`;
     html($li, `
     <p class="chat-item__name">${from}</p>
     <p class="chat-item__content">${content}</p>`);

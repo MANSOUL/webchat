@@ -51,3 +51,10 @@ export function attr($ele, attrName, attrValue) {
     return $ele.getAttribute(attrName);
   }
 }
+
+export function scrollToBottom($ele) {
+  let scrollHeight = $ele.scrollHeight;
+  let clientHeight = $ele.clientHeight;
+  let scrollTop = scrollHeight - clientHeight;
+  $ele.scrollTop = scrollTop > 0 ? scrollTop : 0;
+}

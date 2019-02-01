@@ -14,6 +14,11 @@ const app = http.createServer(function (req, res) {
 
 const CHAT_MESSAGE = 'CHAT_MESSAGE';
 const LOGIN_MESSAGE = 'LOGIN_MESSAGE';
+const CANDIDATE = 'candidate';
+const OFFER = 'offer';
+const ANSWER = 'answer';
+const BYE = 'BYE';
+const JOINED = 'joined';
 const io = socketIO.listen(app);
 
 io.sockets.on('connection', function (socket) {
@@ -50,6 +55,17 @@ io.sockets.on('connection', function (socket) {
           toUser,
           content
         }
+      });
+    }
+    else if (type === OFFER || type === ANSWER || type === CANDIDATE || type === BYE || type === JOINED) {
+      const { touid, data } = message.data;
+      console.log(touid, data)
+      const toUser = inlineModel.getUserByUID(touid);
+      const fromUser = inlineModel.getUserBySocketID(socketID);
+      const toSocket = io.sockets.connected[toUser.socketID];
+      toSocket.emit('message', {
+        type,
+        data
       });
     }
   });

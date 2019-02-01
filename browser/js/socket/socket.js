@@ -24,6 +24,11 @@ const mSocket = {
 
 export const CHAT_MESSAGE = 'CHAT_MESSAGE';
 export const LOGIN_MESSAGE = 'LOGIN_MESSAGE';
+export const CANDIDATE = 'candidate';
+export const OFFER = 'offer';
+export const ANSWER = 'answer';
+export const BYE = 'BYE';
+export const JOINED = 'joined';
 export default mSocket;
 
 

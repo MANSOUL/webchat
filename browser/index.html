@@ -8,11 +8,16 @@
   <link rel="stylesheet" href="./css/login.css">
   <link rel="stylesheet" href="./css/users.css">
   <link rel="stylesheet" href="./css/chat.css">
+  <link rel="stylesheet" href="./css/webrtc.css">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
     }
     body {
       font-family: 'Courier New', Courier, monospace;
@@ -52,18 +57,16 @@
 
   <!-- video chat -->
   <div class="page page--hidden page-video">
-    <video id="localVideo" autoplay playsinline style="opacity: 0.1;"></video>
-    <video id="remoteVideo" autoplay playsinline style="opacity: 0.1;"></video>
-    <div>
-      <button id="startButton">Start</button>
-      <button id="callButton">Call</button>
-      <button id="hangupButton">Hang Up</button>
-    </div>
+    <video class="page-video__video page-video__video--remote" id="remoteVideo" autoplay playsinline></video>
+    <video class="page-video__video page-video__video--local" id="localVideo" autoplay playsinline></video>
+    <button class="page-video__hangup" id="hangup"></button>
+    <button class="page-video__call" id="call"></button>
   </div>
   <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.dev.js"></script>
   <script type="module" src="./js/pages/login.js"></script>
   <script type="module" src="./js/pages/users.js"></script>
   <script type="module" src="./js/pages/chat.js"></script>
+  <script type="module" src="./js/pages/webrtc.js"></script>
 </body>
 
 </html>

@@ -56,8 +56,9 @@ function handleEnterUsersPage() {
   });
 
   // web rtc
-  function startWebRTC(uid) {
-
+  function startWebRTC(uid, uname) {
+    changeToUID(uid, uname);
+    routes.goto('/video');
   }
 
   // websocket chat
