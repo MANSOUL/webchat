@@ -30,6 +30,7 @@ function handleEnterWebrtcPage() {
    */
   function startVideo() {
     window.navigator.mediaDevices.getUserMedia({
+      audio: true,
       video: {
         width: window.innerWidth,
         height: window.innerHeight
