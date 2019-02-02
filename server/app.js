@@ -1,13 +1,19 @@
+const fs = require('fs');
 const nodeStatic = require('node-static');
-const http = require('http');
+const http = require('https');
 const socketIO = require('socket.io');
 const InlineModel = require('./model/inline.js');
 const inlineModel = new InlineModel();
 
+var options = {
+  key: fs.readFileSync('./keys/privatekey.pem'),
+  cert: fs.readFileSync('./keys/certificate.pem')
+};
+
 const fileServer = new nodeStatic.Server('./browser', {
   cache: 0
 });
-const app = http.createServer(function (req, res) {
+const app = http.createServer(options, function (req, res) {
   fileServer.serve(req, res);
 }).listen(8888);
 
