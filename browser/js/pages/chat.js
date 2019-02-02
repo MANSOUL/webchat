@@ -1,7 +1,7 @@
 import routes from '../routes.js';
-import { removeClass, addClass, text, map, html, hasClass, attr, scrollToBottom } from '../common.js';
-import mSocket, { LOGIN_MESSAGE, CHAT_MESSAGE } from '../socket/socket.js';
-import { getStore, changeInlineUsers } from '../store/store.js';
+import { removeClass, text, html, scrollToBottom } from '../common.js';
+import mSocket, { CHAT_MESSAGE } from '../socket/socket.js';
+import { getStore } from '../store/store.js';
 
 const $page = document.querySelector('.page-chat');
 routes.add('/chat', handleEnterChatPage);
@@ -26,7 +26,6 @@ function handleEnterChatPage() {
     chatHistory.push({
       from, content, type
     });
-    // 
     const $chatItem = createChatItem(from, content, type);
     $chatList.appendChild($chatItem);
     scrollToBottom(document.documentElement);
@@ -67,7 +66,8 @@ function handleEnterChatPage() {
   // bind event
   $chatSend.addEventListener('click', handleChatSendClick);
   // routes listen
-  routes.willChange(function handleRoutesChange() {
+  const unsubRouteChange = routes.willChange(function handleRoutesChange() {
+    unsubRouteChange();
     mSocket.off('message', handleReceivedMessage);
     $chatSend.removeEventListener('click', handleChatSendClick);
   });

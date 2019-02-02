@@ -1,7 +1,7 @@
 import routes from '../routes.js';
-import { removeClass, addClass, text, map, html, hasClass, attr, parent } from '../common.js';
+import { removeClass } from '../common.js';
 import mSocket, { CANDIDATE, OFFER, ANSWER, BYE } from '../socket/socket.js';
-import { getStore, changeInlineUsers, changeToUID } from '../store/store.js';
+import { getStore } from '../store/store.js';
 
 const $page = document.querySelector('.page-video');
 routes.add('/video', handleEnterWebrtcPage);
@@ -162,17 +162,36 @@ function handleEnterWebrtcPage() {
       pc.addIceCandidate(candidate);
     } else if (type === BYE) {
       hangupCall();
+      window.history.back();
     }
   }
 
   mSocket.on('message', handleOnSocketMessage);
 
-  // bind events
+  /**** bind events ****/
   $hangup.addEventListener('click', hangupCall);
   $call.addEventListener('click', handleCall);
+  window.addEventListener('beforeunload', function handleWindowUnload() {
+    hangupCall();
+    mSocket.sendMessage(BYE, {
+      touid: chater.uid
+    });
+  });
 
-  //
+  /**** start app ****/
   startVideo();
+  const unsubRouteChange = routes.willChange(function handlePageChange() {
+    unsubRouteChange();
+    // remove event listener
+    mSocket.off('message', handleOnSocketMessage);
+    $hangup.removeEventListener('click', hangupCall);
+    $call.removeEventListener('click', handleCall);
+    // send BYE message
+    hangupCall();
+    mSocket.sendMessage(BYE, {
+      touid: chater.uid
+    });
+  });
 }
 
 

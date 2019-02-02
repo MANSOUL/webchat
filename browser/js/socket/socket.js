@@ -6,7 +6,7 @@ const mSocket = {
     }
   },
 
-  sendMessage(type, data) {
+  sendMessage(type, data = {}) {
     this.socket.emit('message', {
       type,
       data: data

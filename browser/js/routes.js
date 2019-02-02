@@ -29,7 +29,7 @@ const routes = {
   willChange(fn) {
     if (typeof fn !== 'function') return;
     let index = this.willChangeCallbacks.push(fn) - 1;
-    return function unsub() {
+    return () => {
       this.willChangeCallbacks[index] = null;
     }
   }

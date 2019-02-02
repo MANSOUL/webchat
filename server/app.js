@@ -54,24 +54,28 @@ io.sockets.on('connection', function (socket) {
       const toUser = inlineModel.getUserByUID(touid);
       const fromUser = inlineModel.getUserBySocketID(socketID);
       const toSocket = io.sockets.connected[toUser.socketID];
-      toSocket.emit('message', {
-        data: {
-          fromUser,
-          toUser,
-          content
-        }
-      });
+      if (toUser && fromUser) {
+        toSocket.emit('message', {
+          data: {
+            fromUser,
+            toUser,
+            content
+          }
+        });
+      }
     }
     else if (type === OFFER || type === ANSWER || type === CANDIDATE || type === BYE || type === JOINED) {
       const { touid, data } = message.data;
       console.log(touid, data)
       const toUser = inlineModel.getUserByUID(touid);
       const fromUser = inlineModel.getUserBySocketID(socketID);
-      const toSocket = io.sockets.connected[toUser.socketID];
-      toSocket.emit('message', {
-        type,
-        data
-      });
+      if (toUser) {
+        const toSocket = io.sockets.connected[toUser.socketID];
+        toSocket.emit('message', {
+          type,
+          data
+        });
+      }
     }
   });
 

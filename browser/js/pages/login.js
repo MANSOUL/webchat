@@ -21,7 +21,7 @@ function handleEnterLoginPage() {
   };
   const $loginInput = document.querySelector('.page-login__input');
   const $loginTip = document.querySelector('.page-login__tip');
-  $loginInput.value = navigator.userAgent.toLowerCase().match('android') ? 'kuangguanghu' : 'wangyudan'
+  $loginInput.value = navigator.userAgent.toLowerCase().match('android') ? 'kuangguanghu' : 'wangyudan';
 
   $loginInput.addEventListener('keydown', function handleLoginInputKeydown(e) {
     if (e.keyCode === 13) {

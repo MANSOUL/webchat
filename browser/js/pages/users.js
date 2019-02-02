@@ -1,14 +1,13 @@
 import routes from '../routes.js';
-import { removeClass, addClass, text, map, html, hasClass, attr, parent } from '../common.js';
-import mSocket, { LOGIN_MESSAGE } from '../socket/socket.js';
-import { getStore, changeInlineUsers, changeToUID } from '../store/store.js';
+import { removeClass, text, map, html, hasClass, attr, parent } from '../common.js';
+import mSocket from '../socket/socket.js';
+import { changeInlineUsers, changeToUID } from '../store/store.js';
 
 const $page = document.querySelector('.page-users');
 routes.add('/users', handleEnterUsersPage);
 
 function handleEnterUsersPage() {
   removeClass($page, 'page--hidden');
-  let initUsers = false;
   const $userList = document.querySelector('.page-users__inline-list');
   const $inlineUserCount = document.querySelector('.page-users__inline-count');
 
@@ -21,10 +20,6 @@ function handleEnterUsersPage() {
 
   // create inline user list
   function createInlineUers(users) {
-    // if (initUsers) {
-    //   return;
-    // }
-    initUsers = true;
     let htmlString = '';
     map(users, function (item) {
       htmlString +=
