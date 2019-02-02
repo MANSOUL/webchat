@@ -1,4 +1,3 @@
-const os = require('os');
 const nodeStatic = require('node-static');
 const http = require('http');
 const socketIO = require('socket.io');

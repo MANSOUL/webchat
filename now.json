@@ -1,0 +1,14 @@
+{
+  "name": "webchat",
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/app.js",
+      "use": "@now/node"
+    },
+    {
+      "src": "./browser",
+      "use": "@now/static"
+    }
+  ]
+}
